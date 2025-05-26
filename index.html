@@ -1,0 +1,833 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Glow Haven | Premium Beauty Products</title>
+    <style>
+        /* Reset and Base Styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        body {
+            background-color: #fcf8f8;
+            color: #5a5a5a;
+            line-height: 1.6;
+        }
+
+        /* Color Variables */
+        :root {
+            --primary-pink: #f9d5e5;
+            --secondary-lavender: #e1d5f9;
+            --accent-mint: #d5f9e1;
+            --accent-yellow: #f9f5d5;
+            --text-dark: #5a5a5a;
+            --text-light: #8b8b8b;
+            --white: #ffffff;
+        }
+
+        /* Typography */
+        h1, h2, h3, h4 {
+            font-weight: 600;
+            color: #444;
+        }
+
+        /* Header */
+        header {
+            background: linear-gradient(135deg, var(--primary-pink), var(--secondary-lavender));
+            padding: 1.5rem 0;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        .nav-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--text-dark);
+            text-decoration: none;
+        }
+
+        .logo span {
+            color: #ff85a2;
+        }
+
+        nav ul {
+            display: flex;
+            list-style: none;
+        }
+
+        nav ul li {
+            margin: 0 1rem;
+        }
+
+        nav ul li a {
+            text-decoration: none;
+            color: var(--text-dark);
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+
+        nav ul li a:hover {
+            color: #ff85a2;
+        }
+
+        .cart-icon {
+            position: relative;
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+
+        .cart-count {
+            position: absolute;
+            top: -10px;
+            right: -10px;
+            background-color: #ff85a2;
+            color: white;
+            border-radius: 50%;
+            width: 20px;
+            height: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.8rem;
+        }
+
+        /* Hero Section */
+        .hero {
+            background: linear-gradient(rgba(255, 255, 255, 0.9), rgba(255, 255, 255, 0.7)), url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='1200' height='600' viewBox='0 0 1200 600'%3E%3Crect width='1200' height='600' fill='%23f9f5f6'/%3E%3Cpath d='M0,400 Q300,350 600,450 T1200,400 V600 H0 Z' fill='%23f9d5e5' opacity='0.6'/%3E%3Cpath d='M0,450 Q300,400 600,500 T1200,450 V600 H0 Z' fill='%23e1d5f9' opacity='0.4'/%3E%3Ccircle cx='900' cy='200' r='80' fill='%23f9d5e5' opacity='0.3'/%3E%3Ccircle cx='1000' cy='150' r='50' fill='%23e1d5f9' opacity='0.3'/%3E%3Ccircle cx='850' cy='100' r='30' fill='%23d5f9e1' opacity='0.3'/%3E%3Ccircle cx='200' cy='150' r='100' fill='%23f9d5e5' opacity='0.2'/%3E%3Ccircle cx='300' cy='200' r='70' fill='%23e1d5f9' opacity='0.2'/%3E%3Ccircle cx='150' cy='250' r='40' fill='%23d5f9e1' opacity='0.2'/%3E%3C/svg%3E") center/cover no-repeat;
+            padding: 5rem 0;
+            text-align: center;
+        }
+
+        .hero h1 {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            color: var(--text-dark);
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            margin-bottom: 2rem;
+            color: var(--text-light);
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 0.8rem 2rem;
+            background-color: var(--primary-pink);
+            color: var(--text-dark);
+            border: none;
+            border-radius: 30px;
+            font-weight: 500;
+            text-decoration: none;
+            transition: all 0.3s;
+            cursor: pointer;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+            background-color: #ff9eb5;
+        }
+
+        /* Featured Products */
+        .featured {
+            padding: 4rem 0;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 2rem;
+            margin-bottom: 3rem;
+            position: relative;
+        }
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 3px;
+            background: linear-gradient(to right, var(--primary-pink), var(--secondary-lavender));
+        }
+
+        .products {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 2rem;
+        }
+
+        .product {
+            background-color: var(--white);
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .product:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+        }
+
+        .product-img {
+            height: 200px;
+            background-color: #f5f5f5;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .product-img img {
+            max-width: 80%;
+            max-height: 80%;
+            object-fit: cover;
+        }
+
+        .product-info {
+            padding: 1.5rem;
+        }
+
+        .product-category {
+            font-size: 0.8rem;
+            color: var(--text-light);
+            margin-bottom: 0.5rem;
+        }
+
+        .product-title {
+            font-size: 1.2rem;
+            margin-bottom: 0.5rem;
+            color: var(--text-dark);
+        }
+
+        .product-price {
+            font-size: 1.3rem;
+            font-weight: 600;
+            color: #ff85a2;
+            margin-bottom: 1rem;
+        }
+
+        .product-btn {
+            width: 100%;
+            text-align: center;
+            padding: 0.8rem;
+            background-color: var(--secondary-lavender);
+        }
+
+        /* Categories Section */
+        .categories {
+            padding: 4rem 0;
+            background-color: var(--accent-yellow);
+        }
+
+        .category-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 2rem;
+        }
+
+        .category {
+            position: relative;
+            height: 200px;
+            border-radius: 10px;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+        }
+
+        .category-1 {
+            background-color: var(--primary-pink);
+        }
+
+        .category-2 {
+            background-color: var(--secondary-lavender);
+        }
+
+        .category-3 {
+            background-color: var(--accent-mint);
+        }
+
+        .category-4 {
+            background-color: #f9d5c3;
+        }
+
+        .category h3 {
+            color: var(--text-dark);
+            font-size: 1.5rem;
+            z-index: 1;
+            text-align: center;
+        }
+
+        .category::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(255, 255, 255, 0.2);
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+
+        .category:hover::before {
+            opacity: 1;
+        }
+
+        /* Benefits Section */
+        .benefits {
+            padding: 4rem 0;
+            background-color: var(--white);
+        }
+
+        .benefits-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .benefit {
+            text-align: center;
+            padding: 2rem;
+            background-color: var(--white);
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
+        }
+
+        .benefit-icon {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            color: #ff85a2;
+        }
+
+        .benefit h3 {
+            margin-bottom: 1rem;
+            color: var(--text-dark);
+        }
+
+        /* Newsletter */
+        .newsletter {
+            padding: 4rem 0;
+            background-color: var(--accent-mint);
+            text-align: center;
+        }
+
+        .newsletter h2 {
+            margin-bottom: 1rem;
+        }
+
+        .newsletter p {
+            margin-bottom: 2rem;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .newsletter-form {
+            display: flex;
+            max-width: 500px;
+            margin: 0 auto;
+        }
+
+        .newsletter-input {
+            flex: 1;
+            padding: 0.8rem 1.5rem;
+            border: none;
+            border-radius: 30px 0 0 30px;
+            outline: none;
+            font-size: 1rem;
+        }
+
+        .newsletter-btn {
+            padding: 0 1.5rem;
+            background-color: var(--primary-pink);
+            color: var(--text-dark);
+            border: none;
+            border-radius: 0 30px 30px 0;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .newsletter-btn:hover {
+            background-color: #ff9eb5;
+        }
+
+        /* Footer */
+        footer {
+            background-color: #f8f8f8;
+            padding: 3rem 0 1rem;
+        }
+
+        .footer-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .footer-col h4 {
+            font-size: 1.2rem;
+            margin-bottom: 1.5rem;
+            position: relative;
+            padding-bottom: 0.5rem;
+            color: var(--text-dark);
+        }
+
+        .footer-col h4::after {
+            content: '';
+            position: absolute;
+            left: 0;
+            bottom: 0;
+            width: 40px;
+            height: 2px;
+            background-color: var(--primary-pink);
+        }
+
+        .footer-col ul {
+            list-style: none;
+        }
+
+        .footer-col ul li {
+            margin-bottom: 0.8rem;
+        }
+
+        .footer-col ul li a {
+            text-decoration: none;
+            color: var(--text-light);
+            transition: color 0.3s;
+        }
+
+        .footer-col ul li a:hover {
+            color: #ff85a2;
+            padding-left: 5px;
+        }
+
+        .social-icons {
+            display: flex;
+            gap: 1rem;
+        }
+
+        .social-icon {
+            display: inline-block;
+            width: 40px;
+            height: 40px;
+            background-color: var(--primary-pink);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--text-dark);
+            transition: all 0.3s;
+        }
+
+        .social-icon:hover {
+            background-color: #ff85a2;
+            color: var(--white);
+            transform: translateY(-3px);
+        }
+
+        .copyright {
+            text-align: center;
+            padding-top: 2rem;
+            border-top: 1px solid #eee;
+            color: var(--text-light);
+            font-size: 0.9rem;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .nav-container {
+                flex-direction: column;
+                gap: 1rem;
+            }
+            
+            nav ul {
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+            
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+            
+            .newsletter-form {
+                flex-direction: column;
+                gap: 1rem;
+            }
+            
+            .newsletter-input, .newsletter-btn {
+                border-radius: 30px;
+                width: 100%;
+                padding: 0.8rem;
+            }
+        }
+    </style>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="container nav-container">
+            <a href="#" class="logo">Glow<span>Haven</span></a>
+            <nav>
+                <ul>
+                    <li><a href="#">Home</a></li>
+                    <li><a href="#products">Products</a></li>
+                    <li><a href="#categories">Categories</a></li>
+                    <li><a href="#about">About Us</a></li>
+                    <li><a href="#contact">Contact</a></li>
+                </ul>
+            </nav>
+            <div class="cart-icon">
+                <i class="fas fa-shopping-bag"></i>
+                <span class="cart-count">0</span>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="container">
+            <h1>Radiate Natural Beauty</h1>
+            <p>Discover our collection of premium beauty products made with love and care for your skin and body.</p>
+            <a href="#products" class="btn">Shop Now</a>
+        </div>
+    </section>
+
+    <!-- Featured Products -->
+    <section class="featured" id="products">
+        <div class="container">
+            <h2 class="section-title">Our Featured Products</h2>
+            <div class="products">
+                <!-- Product 1 -->
+                <div class="product">
+                    <div class="product-img">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="200" height="200" viewBox="0 0 200 200">
+                            <rect width="200" height="200" fill="transparent"/>
+                            <!-- Bottle -->
+                            <rect x="70" y="45" width="60" height="110" rx="10" fill="#f9d5e5"/>
+                            <rect x="80" y="35" width="40" height="20" rx="5" fill="#f9d5e5"/>
+                            <!-- Cap -->
+                            <rect x="85" y="20" width="30" height="15" rx="5" fill="#e1d5f9"/>
+                            <!-- Pump -->
+                            <rect x="93" y="10" width="14" height="10" rx="2" fill="#ffffff"/>
+                            <!-- Label -->
+                            <rect x="75" y="65" width="50" height="70" rx="5" fill="#ffffff" opacity="0.8"/>
+                            <text x="100" y="90" font-family="Arial" font-size="8" text-anchor="middle" fill="#5a5a5a">Rose Petal</text>
+                            <text x="100" y="100" font-family="Arial" font-size="8" text-anchor="middle" fill="#5a5a5a">Facial</text>
+                            <text x="100" y="110" font-family="Arial" font-size="8" text-anchor="middle" fill="#5a5a5a">Cleanser</text>
+                            <!-- Flower decoration -->
+                            <circle cx="100" y="125" r="3" fill="#ff85a2"/>
+                            <circle cx="96" y="122" r="3" fill="#ff85a2"/>
+                            <circle cx="104" y="122" r="3" fill="#ff85a2"/>
+                            <circle cx="96" y="128" r="3" fill="#ff85a2"/>
+                            <circle cx="104" y="128" r="3" fill="#ff85a2"/>
+                        </svg>
+                    </div>
+                    <div class="product-info">
+                        <div class="product-category">Skincare</div>
+                        <h3 class="product-title">Rose Petal Facial Cleanser</h3>
+                        <div class="product-price">$24.99</div>
+                        <button class="btn product-btn">Add to Cart</button>
+                    </div>
+                </div>
+
+                <!-- Product 2 -->
+                <div class="product">
+                    <div class="product-img">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="200" height="200" viewBox="0 0 200 200">
+                            <rect width="200" height="200" fill="transparent"/>
+                            <!-- Jar -->
+                            <ellipse cx="100" cy="120" rx="45" ry="20" fill="#f9f5d5"/>
+                            <path d="M55,120 v-40 a45,20 0 0,1 90,0 v40" fill="#f9f5d5"/>
+                            <!-- Lid -->
+                            <ellipse cx="100" cy="80" rx="45" ry="20" fill="#d5f9e1"/>
+                            <ellipse cx="100" cy="80" rx="35" ry="15" fill="#f9f5d5"/>
+                            <!-- Label -->
+                            <rect x="65" y="95" width="70" height="30" rx="5" fill="#ffffff" opacity="0.7"/>
+                            <text x="100" y="110" font-family="Arial" font-size="8" text-anchor="middle" fill="#5a5a5a">Hydrating</text>
+                            <text x="100" y="120" font-family="Arial" font-size="8" text-anchor="middle" fill="#5a5a5a">Aloe Moisturizer</text>
+                            <!-- Aloe decoration -->
+                            <path d="M115,60 Q125,50 115,40 Q105,50 115,60" fill="#d5f9e1" opacity="0.7"/>
+                            <path d="M125,65 Q135,55 125,45 Q115,55 125,65" fill="#d5f9e1" opacity="0.7"/>
+                            <path d="M105,65 Q115,55 105,45 Q95,55 105,65" fill="#d5f9e1" opacity="0.7"/>
+                        </svg>
+                    </div>
+                    <div class="product-info">
+                        <div class="product-category">Skincare</div>
+                        <h3 class="product-title">Hydrating Aloe Moisturizer</h3>
+                        <div class="product-price">$29.99</div>
+                        <button class="btn product-btn">Add to Cart</button>
+                    </div>
+                </div>
+
+                <!-- Product 3 -->
+                <div class="product">
+                    <div class="product-img">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="200" height="200" viewBox="0 0 200 200">
+                            <rect width="200" height="200" fill="transparent"/>
+                            <!-- Lip Gloss Tubes -->
+                            <rect x="60" y="70" width="15" height="90" rx="5" fill="#ff85a2" opacity="0.8"/>
+                            <rect x="85" y="60" width="15" height="100" rx="5" fill="#f9d5e5" opacity="0.8"/>
+                            <rect x="110" y="70" width="15" height="90" rx="5" fill="#e1d5f9" opacity="0.8"/>
+                            <rect x="135" y="80" width="15" height="80" rx="5" fill="#f9f5d5" opacity="0.8"/>
+                            <!-- Caps -->
+                            <rect x="60" y="55" width="15" height="15" rx="3" fill="#5a5a5a" opacity="0.7"/>
+                            <rect x="85" y="45" width="15" height="15" rx="3" fill="#5a5a5a" opacity="0.7"/>
+                            <rect x="110" y="55" width="15" height="15" rx="3" fill="#5a5a5a" opacity="0.7"/>
+                            <rect x="135" y="65" width="15" height="15" rx="3" fill="#5a5a5a" opacity="0.7"/>
+                            <!-- Shimmer effect -->
+                            <circle cx="67" cy="90" r="2" fill="#ffffff" opacity="0.8"/>
+                            <circle cx="92" cy="80" r="2" fill="#ffffff" opacity="0.8"/>
+                            <circle cx="117" cy="90" r="2" fill="#ffffff" opacity="0.8"/>
+                            <circle cx="142" cy="100" r="2" fill="#ffffff" opacity="0.8"/>
+                            <!-- Label text -->
+                            <text x="100" y="175" font-family="Arial" font-size="10" text-anchor="middle" fill="#5a5a5a">Shimmer Collection</text>
+                        </svg>
+                    </div>
+                    <div class="product-info">
+                        <div class="product-category">Makeup</div>
+                        <h3 class="product-title">Shimmer Lip Gloss Collection</h3>
+                        <div class="product-price">$19.99</div>
+                        <button class="btn product-btn">Add to Cart</button>
+                    </div>
+                </div>
+
+                <!-- Product 4 -->
+                <div class="product">
+                    <div class="product-img">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="200" height="200" viewBox="0 0 200 200">
+                            <rect width="200" height="200" fill="transparent"/>
+                            <!-- Eyeshadow Palette -->
+                            <rect x="40" y="60" width="120" height="80" rx="5" fill="#5a5a5a" opacity="0.7"/>
+                            <rect x="45" y="65" width="110" height="70" rx="3" fill="#f8f8f8"/>
+                            <!-- Eyeshadow Colors -->
+                            <circle cx="65" cy="85" r="15" fill="#f9d5e5"/>
+                            <circle cx="95" cy="85" r="15" fill="#e1d5f9"/>
+                            <circle cx="125" cy="85" r="15" fill="#d5f9e1"/>
+                            <circle cx="65" cy="115" r="15" fill="#f9f5d5"/>
+                            <circle cx="95" cy="115" r="15" fill="#f9d5c3"/>
+                            <circle cx="125" cy="115" r="15" fill="#c3d5f9"/>
+                            <!-- Shimmer effect -->
+                            <circle cx="65" cy="80" r="2" fill="#ffffff" opacity="0.6"/>
+                            <circle cx="95" cy="80" r="2" fill="#ffffff" opacity="0.6"/>
+                            <circle cx="125" cy="80" r="2" fill="#ffffff" opacity="0.6"/>
+                            <circle cx="65" cy="110" r="2" fill="#ffffff" opacity="0.6"/>
+                            <circle cx="95" cy="110" r="2" fill="#ffffff" opacity="0.6"/>
+                            <circle cx="125" cy="110" r="2" fill="#ffffff" opacity="0.6"/>
+                            <!-- Label -->
+                            <text x="100" y="160" font-family="Arial" font-size="10" text-anchor="middle" fill="#5a5a5a">Pastel Dreams Palette</text>
+                        </svg>
+                    </div>
+                    <div class="product-info">
+                        <div class="product-category">Makeup</div>
+                        <h3 class="product-title">Pastel Dreams Eye Shadow Palette</h3>
+                        <div class="product-price">$34.99</div>
+                        <button class="btn product-btn">Add to Cart</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Categories -->
+    <section class="categories" id="categories">
+        <div class="container">
+            <h2 class="section-title">Shop by Category</h2>
+            <div class="category-grid">
+                <div class="category category-1">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="100" height="100" viewBox="0 0 100 100" style="display: block; margin: 0 auto 10px;">
+                        <rect width="100" height="100" fill="transparent"/>
+                        <!-- Skincare bottles -->
+                        <rect x="20" y="30" width="20" height="50" rx="5" fill="#ffffff" opacity="0.9"/>
+                        <rect x="40" y="20" width="20" height="60" rx="5" fill="#ffffff" opacity="0.9"/>
+                        <rect x="60" y="35" width="20" height="45" rx="5" fill="#ffffff" opacity="0.9"/>
+                        <!-- Caps -->
+                        <rect x="23" y="25" width="14" height="5" rx="2" fill="#5a5a5a" opacity="0.5"/>
+                        <rect x="43" y="15" width="14" height="5" rx="2" fill="#5a5a5a" opacity="0.5"/>
+                        <rect x="63" y="30" width="14" height="5" rx="2" fill="#5a5a5a" opacity="0.5"/>
+                    </svg>
+                    <h3>Skincare</h3>
+                </div>
+                <div class="category category-2">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="100" height="100" viewBox="0 0 100 100" style="display: block; margin: 0 auto 10px;">
+                        <rect width="100" height="100" fill="transparent"/>
+                        <!-- Makeup items -->
+                        <circle cx="30" cy="50" r="15" fill="#ffffff" opacity="0.9"/>
+                        <rect x="20" y="70" width="20" height="5" rx="2" fill="#ff85a2" opacity="0.9"/>
+                        <rect x="50" y="30" width="30" height="20" rx="3" fill="#ffffff" opacity="0.9"/>
+                        <circle cx="55" cy="40" r="5" fill="#f9d5e5" opacity="0.9"/>
+                        <circle cx="65" cy="40" r="5" fill="#e1d5f9" opacity="0.9"/>
+                        <circle cx="75" cy="40" r="5" fill="#d5f9e1" opacity="0.9"/>
+                        <rect x="50" y="60" width="10" height="20" rx="1" fill="#5a5a5a" opacity="0.7"/>
+                    </svg>
+                    <h3>Makeup</h3>
+                </div>
+                <div class="category category-3">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="100" height="100" viewBox="0 0 100 100" style="display: block; margin: 0 auto 10px;">
+                        <rect width="100" height="100" fill="transparent"/>
+                        <!-- Hair care items -->
+                        <rect x="25" y="40" width="20" height="40" rx="3" fill="#ffffff" opacity="0.9"/>
+                        <rect x="28" y="30" width="14" height="10" rx="2" fill="#5a5a5a" opacity="0.5"/>
+                        <path d="M55,30 C75,30 75,50 55,50 C65,50 65,70 55,70" stroke="#ffffff" stroke-width="4" fill="none" opacity="0.9"/>
+                        <rect x="55" y="75" width="20" height="5" rx="2" fill="#ffffff" opacity="0.9"/>
+                    </svg>
+                    <h3>Hair Care</h3>
+                </div>
+                <div class="category category-4">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="100" height="100" viewBox="0 0 100 100" style="display: block; margin: 0 auto 10px;">
+                        <rect width="100" height="100" fill="transparent"/>
+                        <!-- Bath items -->
+                        <rect x="20" y="50" width="30" height="30" rx="5" fill="#ffffff" opacity="0.8"/>
+                        <path d="M20,50 Q35,30 50,50" fill="#ffffff" opacity="0.8"/>
+                        <circle cx="70" cy="45" r="15" fill="#ffffff" opacity="0.8"/>
+                        <!-- Bubbles -->
+                        <circle cx="65" cy="35" r="5" fill="#ffffff" opacity="0.6"/>
+                        <circle cx="75" cy="30" r="3" fill="#ffffff" opacity="0.6"/>
+                        <circle cx="80" cy="40" r="4" fill="#ffffff" opacity="0.6"/>
+                    </svg>
+                    <h3>Bath & Body</h3>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Benefits -->
+    <section class="benefits" id="about">
+        <div class="container">
+            <h2 class="section-title">Why Choose GlowHaven</h2>
+            <div class="benefits-grid">
+                <div class="benefit">
+                    <div class="benefit-icon">
+                        <i class="fas fa-leaf"></i>
+                    </div>
+                    <h3>Natural Ingredients</h3>
+                    <p>All our products are made with carefully selected natural ingredients that nourish your skin.</p>
+                </div>
+                <div class="benefit">
+                    <div class="benefit-icon">
+                        <i class="fas fa-ban"></i>
+                    </div>
+                    <h3>Cruelty-Free</h3>
+                    <p>We never test on animals and are committed to ethical beauty practices.</p>
+                </div>
+                <div class="benefit">
+                    <div class="benefit-icon">
+                        <i class="fas fa-recycle"></i>
+                    </div>
+                    <h3>Eco-Friendly</h3>
+                    <p>Our packaging is recyclable and we strive to minimize our environmental impact.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Newsletter -->
+    <section class="newsletter">
+        <div class="container">
+            <h2>Join Our Newsletter</h2>
+            <p>Subscribe to receive updates on new products, special offers, and beauty tips!</p>
+            <form class="newsletter-form">
+                <input type="email" class="newsletter-input" placeholder="Your email address">
+                <button type="submit" class="newsletter-btn">Subscribe</button>
+            </form>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer id="contact">
+        <div class="container">
+            <div class="footer-container">
+                <div class="footer-col">
+                    <h4>GlowHaven</h4>
+                    <p>Your destination for premium beauty products that enhance your natural beauty.</p>
+                    <div class="social-icons">
+                        <a href="#" class="social-icon"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#" class="social-icon"><i class="fab fa-instagram"></i></a>
+                        <a href="#" class="social-icon"><i class="fab fa-twitter"></i></a>
+                        <a href="#" class="social-icon"><i class="fab fa-pinterest"></i></a>
+                    </div>
+                </div>
+                <div class="footer-col">
+                    <h4>Shop</h4>
+                    <ul>
+                        <li><a href="#">Skincare</a></li>
+                        <li><a href="#">Makeup</a></li>
+                        <li><a href="#">Hair Care</a></li>
+                        <li><a href="#">Bath & Body</a></li>
+                        <li><a href="#">Gift Sets</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h4>Customer Care</h4>
+                    <ul>
+                        <li><a href="#">My Account</a></li>
+                        <li><a href="#">Orders & Returns</a></li>
+                        <li><a href="#">Shipping Policy</a></li>
+                        <li><a href="#">FAQs</a></li>
+                        <li><a href="#">Contact Us</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h4>Contact Us</h4>
+                    <ul>
+                        <li><i class="fas fa-map-marker-alt"></i> 123 Beauty Lane, Skincare City</li>
+                        <li><i class="fas fa-phone"></i> +1 (555) 123-4567</li>
+                        <li><i class="fas fa-envelope"></i> hello@glowhaven.com</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="copyright">
+                <p>&copy; 2025 GlowHaven. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Simple cart functionality
+        const addToCartButtons = document.querySelectorAll('.product-btn');
+        const cartCount = document.querySelector('.cart-count');
+        let count = 0;
+        
+        addToCartButtons.forEach(button => {
+            button.addEventListener('click', () => {
+                count++;
+                cartCount.textContent = count;
+                
+                // Animation effect
+                button.textContent = 'Added!';
+                button.style.backgroundColor = '#ff85a2';
+                
+                setTimeout(() => {
+                    button.textContent = 'Add to Cart';
+                    button.style.backgroundColor = '';
+                }, 1000);
+            });
+        });
+    </script>
+</body>
+</html>
