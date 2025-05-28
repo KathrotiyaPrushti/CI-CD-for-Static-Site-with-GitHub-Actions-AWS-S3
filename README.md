@@ -33,9 +33,6 @@ The pipeline automatically:
 
 ---
 
-## 📽️ Demo
-
----
 
 ## 🧠 Learning Outcome
 
